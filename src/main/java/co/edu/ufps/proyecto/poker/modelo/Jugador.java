@@ -37,6 +37,14 @@ public class Jugador {
         
         
     }
+    
+    public void SumarCredi () {
+        
+    }
+    
+    public void restarCredi () {
+        
+    }
 
     public String getNombre() {
         return nombre;

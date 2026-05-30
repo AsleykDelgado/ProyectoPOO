@@ -4,39 +4,41 @@
  */
 package co.edu.ufps.proyecto.poker.modelo;
 
-import java.util.ArrayList;
-import java.util.Collections;
 
+import co.edu.ufps.proyecto.poker.modelo.*;
 /**
  *
  * @author HP
  */
 public class JuegoPoker {
+     
+    private Mazo mazo;
+    private Jugador jugador;
+    private Mano mano;
+    private Pago pago;
     
-    private ArrayList<Carta> mazo = new ArrayList<>();
     
-    
-    public void CrearMazo () {
-        
-        String[] palos = {"C", "D", "E", "T"};
-        String[] nombres = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
-        
-        for (String palo : palos) {
-            for (String nombre : nombres) {
-                String ruta = "/co/edu/ufps/proyecto/poker/images/" + palo + "-" + nombre + ".jpg";
-                mazo.add(new Carta(palo, nombre, ruta));
-            }
-        }
+    public void IniciarJuego() {
         
     }
     
-    public void BarajearMazo() {
-        Collections.shuffle(mazo);
-    }
-    
-    public void RepartirCartas() {
+    public void repartirCartas() {
         
     }
     
+    public void cambiarCartas() {
+        
+    }
     
+    public void evaluarMano () {
+        
+    }
+    
+    public void CalcularPremio() {
+        
+    }
+    
+    public void reiniciar () {
+        
+    }
 }

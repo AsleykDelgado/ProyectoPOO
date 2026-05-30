@@ -4,10 +4,13 @@
  */
 package co.edu.ufps.proyecto.poker.modelo;
 
+import java.util.Map;
+
 /**
  *
  * @author HP
  */
 public class Pago {
+    
     
 }
