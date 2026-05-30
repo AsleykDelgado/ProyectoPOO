@@ -22,13 +22,19 @@ public class Jugador {
     
     public void realizarApuesta () {
         
+        
+        
     }
     
     public void descartarCartas () {
         
+        
+        
     }
     
     public void evaluarJugada () {
+        
+        
         
     }
 

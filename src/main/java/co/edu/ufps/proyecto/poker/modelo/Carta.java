@@ -12,13 +12,11 @@ public class Carta {
     
     private String pinta;
     private String numero;
-    private int valor;
     private String imagen;
 
-    public Carta(String pinta, String numero, int valor, String imagen) {
+    public Carta(String pinta, String numero, String imagen) {
         this.pinta = pinta;
         this.numero = numero;
-        this.valor = valor;
         this.imagen = imagen;
     }
 
@@ -36,14 +34,6 @@ public class Carta {
 
     public void setNumero(String numero) {
         this.numero = numero;
-    }
-
-    public int getValor() {
-        return valor;
-    }
-
-    public void setValor(int valor) {
-        this.valor = valor;
     }
 
     public String getImagen() {
