@@ -15,19 +15,28 @@ public class JuegoPoker {
     private Mazo mazo;
     private Jugador jugador;
     private Mano mano;
-    private Pago pago;
+    private Pago pago;    
+
+    public JuegoPoker() {
+        mazo = new Mazo();
+        mano = new Mano();
+    }
     
     
     public void IniciarJuego() {
-        
+        mazo.CrearMazo();
+        mazo.BarajearMazo();
     }
     
     public void repartirCartas() {
-        
+        mano.Limpiar();
+    
+        for (int i = 0; i < 5; i++) {
+            mano.agregarCarta(mazo.repartirCarta());
+    }
     }
     
     public void cambiarCartas() {
-        
     }
     
     public void evaluarMano () {
@@ -41,4 +50,22 @@ public class JuegoPoker {
     public void reiniciar () {
         
     }
+
+    public Mazo getMazo() {
+        return mazo;
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
+    public Mano getMano() {
+        return mano;
+    }
+
+    public Pago getPago() {
+        return pago;
+    }
+    
+    
 }

@@ -15,7 +15,6 @@ public class Mazo {
     
     private ArrayList<Carta> mazo = new ArrayList<>();
     
-    
     public void CrearMazo () {
         
         String[] palos = {"C", "D", "E", "T"};
@@ -34,8 +33,8 @@ public class Mazo {
         Collections.shuffle(mazo);
     }
     
-    public void RepartirCartas() {
-        
+    public Carta repartirCarta () {
+        return mazo.remove(0);
     }
     
     public void CartasRestantes () {

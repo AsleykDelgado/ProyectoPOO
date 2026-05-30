@@ -4,6 +4,7 @@
  */
 package co.edu.ufps.proyecto.poker.controlador;
 
+import co.edu.ufps.proyecto.poker.modelo.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -66,6 +67,8 @@ public class PokerController implements Initializable {
     private Button btnRestarCre;
     @FXML
     private Button btnSumarCre;
+    
+    private JuegoPoker juego;
 
     /**
      * Initializes the controller class.
@@ -73,6 +76,8 @@ public class PokerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        juego = new JuegoPoker();
+        juego.IniciarJuego();
     }    
 
     @FXML
@@ -105,6 +110,7 @@ public class PokerController implements Initializable {
 
     @FXML
     private void RepartirCartas(ActionEvent event) {
+        juego.repartirCartas();
     }
 
     @FXML
