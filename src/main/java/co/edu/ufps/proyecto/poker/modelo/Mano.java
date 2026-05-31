@@ -13,26 +13,26 @@ import java.util.ArrayList;
  */
 public class Mano {
     
-    private ArrayList<Carta> cartas;
+    private Carta[] cartas;
 
     public Mano() {
-        cartas = new ArrayList<>();
+        cartas = new Carta[5];
     }
     
-    public void agregarCarta (Carta carta) {
-        if (cartas.size() < 5) {
-            cartas.add(carta);
+    public void agregarCarta (int posicion, Carta carta) {
+        cartas[posicion] = carta;
+    }
+    
+    public void limpiar () {
+        for (int i =0; i<5; i++) {
+            cartas[i] = null;
         }
-        
-    }
-    
-    public void Limpiar () {
-        cartas.clear();
     }
 
-    public ArrayList<Carta> getCartas() {
+    public Carta[] getCartas() {
         return cartas;
     }
-    
+
+
     
 }

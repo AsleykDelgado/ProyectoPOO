@@ -24,15 +24,16 @@ public class JuegoPoker {
     
     
     public void IniciarJuego() {
-        mazo.CrearMazo();
-        mazo.BarajearMazo();
+        mazo = new Mazo();
+        mazo.crearMazo();
+        mazo.barajearMazo();
     }
     
     public void repartirCartas() {
-        mano.Limpiar();
+        mano.limpiar();
     
         for (int i = 0; i < 5; i++) {
-            mano.agregarCarta(mazo.repartirCarta());
+            mano.agregarCarta(i, mazo.repartirCarta());
     }
     }
     
@@ -43,7 +44,7 @@ public class JuegoPoker {
         
     }
     
-    public void CalcularPremio() {
+    public void calcularPremio() {
         
     }
     

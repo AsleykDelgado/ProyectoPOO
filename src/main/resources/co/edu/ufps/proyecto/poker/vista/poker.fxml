@@ -454,7 +454,7 @@
       </Pane>
       <HBox alignment="CENTER" layoutX="189.0" layoutY="620.0" prefHeight="85.0" prefWidth="905.0" spacing="10.0">
          <children>
-            <Button fx:id="btnCobrar" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="COBRAR">
+            <Button fx:id="btnCobrar" disable="true" mnemonicParsing="false" onAction="#CobrarDinero" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="COBRAR">
                <font>
                   <Font name="Arial Black" size="13.0" />
                </font>
@@ -462,35 +462,35 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button fx:id="btnRetener1" mnemonicParsing="false" onAction="#RetenerCarta1" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
+            <Button fx:id="btnRetener1" disable="true" mnemonicParsing="false" onAction="#RetenerCarta1" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
                <effect>
                   <DropShadow />
                </effect></Button>
-            <Button fx:id="btnRetener2" mnemonicParsing="false" onAction="#RetenerCarta2" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
+            <Button fx:id="btnRetener2" disable="true" mnemonicParsing="false" onAction="#RetenerCarta2" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
                <effect>
                   <DropShadow />
                </effect></Button>
-            <Button fx:id="btnRetener3" mnemonicParsing="false" onAction="#RetenerCarta3" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
+            <Button fx:id="btnRetener3" disable="true" mnemonicParsing="false" onAction="#RetenerCarta3" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
                <effect>
                   <DropShadow />
                </effect></Button>
-            <Button fx:id="btnRetener4" mnemonicParsing="false" onAction="#RetenerCarta4" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
+            <Button fx:id="btnRetener4" disable="true" mnemonicParsing="false" onAction="#RetenerCarta4" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
                <effect>
                   <DropShadow />
                </effect></Button>
-            <Button fx:id="btnRetener5" mnemonicParsing="false" onAction="#RetenerCarta5" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
+            <Button fx:id="btnRetener5" disable="true" mnemonicParsing="false" onAction="#RetenerCarta5" prefHeight="60.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="RETENER">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
@@ -513,7 +513,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button fx:id="btnRepartir" mnemonicParsing="false" onAction="#RepartirCartas" prefHeight="70.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="REPARTIR">
+            <Button fx:id="btnRepartir" disable="true" mnemonicParsing="false" onAction="#RepartirCartas" prefHeight="70.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="REPARTIR">
                <font>
                   <Font name="Arial Black" size="13.0" />
                </font>
@@ -535,9 +535,9 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <TextField fx:id="txtCreditosApostados" editable="false" prefHeight="39.0" prefWidth="72.0">
+            <TextField fx:id="txtCreditosApostados" alignment="TOP_CENTER" editable="false" prefHeight="39.0" prefWidth="72.0" text="0">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Century Schoolbook" size="20.0" />
                </font>
             </TextField>
             <Button fx:id="btnSumarCre" mnemonicParsing="false" onAction="#SumarCreditos" prefHeight="39.0" prefWidth="39.0" text="+">
@@ -554,7 +554,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txtCreditos" editable="false">
+            <TextField fx:id="txtCreditos">
                <font>
                   <Font size="20.0" />
                </font>

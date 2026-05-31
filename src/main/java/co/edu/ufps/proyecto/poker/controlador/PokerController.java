@@ -6,15 +6,18 @@ package co.edu.ufps.proyecto.poker.controlador;
 
 import co.edu.ufps.proyecto.poker.modelo.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -69,6 +72,8 @@ public class PokerController implements Initializable {
     private Button btnSumarCre;
     
     private JuegoPoker juego;
+    private ImageView [] imagenes;
+    private Text txtmensaj;
 
     /**
      * Initializes the controller class.
@@ -78,7 +83,76 @@ public class PokerController implements Initializable {
         // TODO
         juego = new JuegoPoker();
         juego.IniciarJuego();
+        
+        imagenes = new ImageView[] {imgCarta1, imgCarta2, imgCarta3, imgCarta4, imgCarta5};
+        
     }    
+    
+    @FXML
+    private void RepartirCartas(ActionEvent event) {
+        
+        juego.repartirCartas();
+        MostrarMano();
+        
+    }
+    
+    private void MostrarMano () {
+        Carta[] cartas = juego.getMano().getCartas();
+        
+        for (int i=0; i<5; i++) {
+            if (cartas[i]!= null) {
+                Image imagen = new Image(getClass().getResourceAsStream(cartas[i].getImagen()));
+                imagenes[i].setImage(imagen);
+            }
+        }
+    }
+    
+    
+
+    @FXML
+    private void RestarCreditos(ActionEvent event) {
+        int cre = Integer.parseInt(txtCreditosApostados.getText());
+        
+        if (cre!=0) {
+            cre--;
+            txtCreditosApostados.setText(cre+ "");
+        }
+    }
+
+    @FXML
+    private void SumarCreditos(ActionEvent event) {
+        int cre = Integer.parseInt(txtCreditosApostados.getText());
+        int apos = Integer.parseInt(txtCreditos.getText());
+        
+        if (cre< apos) {
+        cre++;
+        txtCreditosApostados.setText(cre +"");
+        }
+    }
+    
+    @FXML
+    private void SleccionarApuesta(ActionEvent event) {
+        
+        btnCobrar.setDisable(false);
+        btnRepartir.setDisable(false);
+        btnRetener1.setDisable(false);
+        btnRetener2.setDisable(false);
+        btnRetener3.setDisable(false);
+        btnRetener4.setDisable(false);
+        btnRetener5.setDisable(false);
+        
+        btnApMax.setDisable(true);
+        btnSeleccionApuesta.setDisable(true);
+        btnRestarCre.setDisable(true);
+        btnSumarCre.setDisable(true);
+        
+        txtCreditos.setEditable(false);
+        
+    }
+
+    @FXML
+    private void SeleccionarApuestaMax(ActionEvent event) {
+    }
 
     @FXML
     private void RetenerCarta1(ActionEvent event) {
@@ -100,25 +174,9 @@ public class PokerController implements Initializable {
     private void RetenerCarta5(ActionEvent event) {
     }
 
-    @FXML
-    private void SleccionarApuesta(ActionEvent event) {
-    }
 
     @FXML
-    private void SeleccionarApuestaMax(ActionEvent event) {
-    }
-
-    @FXML
-    private void RepartirCartas(ActionEvent event) {
-        juego.repartirCartas();
-    }
-
-    @FXML
-    private void RestarCreditos(ActionEvent event) {
-    }
-
-    @FXML
-    private void SumarCreditos(ActionEvent event) {
+    private void CobrarDinero(ActionEvent event) {
     }
     
 }

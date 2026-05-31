@@ -15,21 +15,21 @@ public class Mazo {
     
     private ArrayList<Carta> mazo = new ArrayList<>();
     
-    public void CrearMazo () {
+    public void crearMazo () {
         
         String[] palos = {"C", "D", "E", "T"};
         String[] nombres = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
         
         for (String palo : palos) {
             for (String nombre : nombres) {
-                String ruta = "/co/edu/ufps/proyecto/poker/images/" + palo + "-" + nombre + ".jpg";
+                String ruta = "/co/edu/ufps/proyecto/poker/images/" + palo + "-" + nombre + ".jpeg";
                 mazo.add(new Carta(palo, nombre, ruta));
             }
         }
         
     }
     
-    public void BarajearMazo() {
+    public void barajearMazo() {
         Collections.shuffle(mazo);
     }
     
@@ -37,9 +37,6 @@ public class Mazo {
         return mazo.remove(0);
     }
     
-    public void CartasRestantes () {
-        
-    }
 
     public ArrayList<Carta> getMazo() {
         return mazo;

@@ -11,10 +11,11 @@ package co.edu.ufps.proyecto.poker.modelo;
 public class Jugador {
     
     private String nombre;
-    private double creditosApostar;
+    private int creditosApostar;
     private int saldoCredito;
+    private Mano mano = new Mano();
 
-    public Jugador(String nombre, double creditosApostar, int saldoCredito) {
+    public Jugador(String nombre, int creditosApostar, int saldoCredito) {
         this.nombre = nombre;
         this.creditosApostar = creditosApostar;
         this.saldoCredito = saldoCredito;
@@ -38,7 +39,7 @@ public class Jugador {
         
     }
     
-    public void SumarCredi () {
+    public void sumarCredi () {
         
     }
     
@@ -58,7 +59,7 @@ public class Jugador {
         return creditosApostar;
     }
 
-    public void setCreditosApostar(double creditosApostar) {
+    public void setCreditosApostar(int creditosApostar) {
         this.creditosApostar = creditosApostar;
     }
 
