@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,8 +27,6 @@ import javafx.scene.text.Text;
  */
 public class PokerController implements Initializable {
 
-    @FXML
-    private GridPane grdPremios;
     @FXML
     private HBox hboxCartas;
     @FXML
@@ -74,6 +73,9 @@ public class PokerController implements Initializable {
     private JuegoPoker juego;
     private ImageView [] imagenes;
     private Text txtmensaj;
+    private boolean primerJ = true;
+    @FXML
+    private TextArea txtMensaje;
 
     /**
      * Initializes the controller class.
@@ -90,13 +92,18 @@ public class PokerController implements Initializable {
     
     @FXML
     private void RepartirCartas(ActionEvent event) {
-        
-        juego.repartirCartas();
-        MostrarMano();
-        
+        if (primerJ) {
+            juego.repartirCartas();
+            primerJ = false;
+        } else {
+            juego.cambiarCartas();
+            primerJ = true;
+            btnRepartir.setDisable(true);
+        }
+        mostrarMano();
     }
     
-    private void MostrarMano () {
+    private void mostrarMano () {
         Carta[] cartas = juego.getMano().getCartas();
         
         for (int i=0; i<5; i++) {
@@ -107,8 +114,6 @@ public class PokerController implements Initializable {
         }
     }
     
-    
-
     @FXML
     private void RestarCreditos(ActionEvent event) {
         int cre = Integer.parseInt(txtCreditosApostados.getText());
@@ -122,9 +127,8 @@ public class PokerController implements Initializable {
     @FXML
     private void SumarCreditos(ActionEvent event) {
         int cre = Integer.parseInt(txtCreditosApostados.getText());
-        int apos = Integer.parseInt(txtCreditos.getText());
         
-        if (cre< apos) {
+        if (cre< 5) {
         cre++;
         txtCreditosApostados.setText(cre +"");
         }
@@ -133,6 +137,10 @@ public class PokerController implements Initializable {
     @FXML
     private void SleccionarApuesta(ActionEvent event) {
         
+        if (txtCreditos.getText().equals("") || txtCreditosApostados.getText().equals(null)) {
+            txtMensaje.setText("DEBE INGRESAR LOS CREDITOS SOLICITADOS. ");
+        } else {
+        txtMensaje.clear();
         btnCobrar.setDisable(false);
         btnRepartir.setDisable(false);
         btnRetener1.setDisable(false);
@@ -148,30 +156,77 @@ public class PokerController implements Initializable {
         
         txtCreditos.setEditable(false);
         
+        // en el mensaje de apuesta, mostramos los creditos apostados
+        txtApuesta.setText(txtCreditosApostados.getText());
+        }
     }
 
     @FXML
     private void SeleccionarApuestaMax(ActionEvent event) {
+        
+        if (txtCreditos.getText().equals("") || txtCreditosApostados.getText().equals(null)) {
+            txtMensaje.setText("DEBE INGRESAR LOS CREDITOS SOLICITADOS. ");
+        } else {
+            txtMensaje.clear();
+        txtCreditosApostados.setText("5");
+        txtApuesta.setText("5");
+        txtMensaje.setText("SOLO PUEDE APOSTAR 5 CREDITOS POR CADA JUGADA.");
+        }
     }
 
     @FXML
     private void RetenerCarta1(ActionEvent event) {
+        juego.getMano().cambiarRetenida(0);
+        
+        if (juego.getMano().estaRete(0)) {
+            btnRetener1.setText("RETENIDA");
+        } else {
+            btnRetener1.setText("RETENER");
+        }
     }
 
     @FXML
     private void RetenerCarta2(ActionEvent event) {
+        juego.getMano().cambiarRetenida(1);
+        
+        if (juego.getMano().estaRete(1)) {
+            btnRetener2.setText("RETENIDA");
+        } else {
+            btnRetener2.setText("RETENER");
+        }
     }
 
     @FXML
     private void RetenerCarta3(ActionEvent event) {
+        juego.getMano().cambiarRetenida(2);
+        
+        if (juego.getMano().estaRete(2)) {
+            btnRetener3.setText("RETENIDA");
+        } else {
+            btnRetener3.setText("RETENER");
+        }
     }
 
     @FXML
     private void RetenerCarta4(ActionEvent event) {
+        juego.getMano().cambiarRetenida(3);
+        
+        if (juego.getMano().estaRete(3)) {
+            btnRetener4.setText("RETENIDA");
+        } else {
+            btnRetener4.setText("RETENER");
+        }
     }
 
     @FXML
     private void RetenerCarta5(ActionEvent event) {
+        juego.getMano().cambiarRetenida(4);
+        
+        if (juego.getMano().estaRete(4)) {
+            btnRetener5.setText("RETENIDA");
+        } else {
+            btnRetener5.setText("RETENER");
+        }
     }
 
 
