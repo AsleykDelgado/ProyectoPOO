@@ -15,11 +15,13 @@ public class JuegoPoker {
     private Mazo mazo;
     private Jugador jugador;
     private Mano mano;
-    private Pago pago;    
+    private Pago pago; 
+    private EvaluadorMano eval;
 
     public JuegoPoker() {
         mazo = new Mazo();
         mano = new Mano();
+        eval = new EvaluadorMano();
     }
     
     
@@ -38,6 +40,12 @@ public class JuegoPoker {
     }
     
     public void cambiarCartas() {
+        for (int i = 0; i < 5; i++) {
+
+            if (!mano.estaRete(i)) {
+                mano.agregarCarta(i, mazo.repartirCarta());
+            }
+        }
     }
     
     public void evaluarMano () {
