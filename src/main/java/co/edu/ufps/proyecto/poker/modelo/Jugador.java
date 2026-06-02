@@ -21,31 +21,6 @@ public class Jugador {
         this.saldoCredito = saldoCredito;
     }
     
-    public void realizarApuesta () {
-        
-        
-        
-    }
-    
-    public void descartarCartas () {
-        
-        
-        
-    }
-    
-    public void evaluarJugada () {
-        
-        
-        
-    }
-    
-    public void sumarCredi () {
-        
-    }
-    
-    public void restarCredi () {
-        
-    }
 
     public String getNombre() {
         return nombre;

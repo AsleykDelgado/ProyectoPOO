@@ -6,6 +6,7 @@ package co.edu.ufps.proyecto.poker.modelo;
 
 
 import co.edu.ufps.proyecto.poker.modelo.*;
+import java.util.ArrayList;
 /**
  *
  * @author HP
@@ -17,11 +18,16 @@ public class JuegoPoker {
     private Mano mano;
     private Pago pago; 
     private EvaluadorMano eval;
+    private int creditos;
+    private int creditosApos;
 
-    public JuegoPoker() {
+    public JuegoPoker(int creditosApos, int creditos) {
         mazo = new Mazo();
         mano = new Mano();
         eval = new EvaluadorMano();
+        pago = new Pago();
+        this.creditosApos = creditosApos;
+        this.creditos = creditos;
     }
     
     
@@ -48,16 +54,43 @@ public class JuegoPoker {
         }
     }
     
-    public void evaluarMano () {
+    public String evaluarMano () {
+        Carta[] cartas = mano.getCartas();
         
+        if (eval.esEscaleraReal(cartas)) {
+            return "ESCALERA REAL DE COLOR. ";
+        } if (eval.esEscaleraColor(cartas)) {
+            return "ESCALERA DE COLOR. ";
+        } if (eval.esPoker(cartas)) {
+            return "POKER. ";
+        } if (eval.esFull(cartas)) {
+            return "FULL. ";
+        } if (eval.esColor(cartas)) {
+            return "COLOR. ";
+        } if (eval.esEscalera(cartas)) {
+            return "ESCALERA. ";
+        } if (eval.esTrio(cartas)) {
+            return "TRIO. ";
+        } if (eval.esDoblePar(cartas)) {
+            return "DOBLE PAREJA. ";
+        } if (eval.esPar(cartas)) {
+            return "PAREJA DE JOTAS O MEJOR. ";
+        }
+        return "NINGUNA JUGADA. ";
     }
     
-    public void calcularPremio() {
-        
+    public int calcularPremio() {
+        return pago.calcular(mano.getCartas(), creditosApos);
     }
     
     public void reiniciar () {
+        mano.limpiar();
         
+        creditos = creditos;
+        creditosApos = 0;
+        
+        mazo = new Mazo();
+        mazo.barajearMazo();
     }
 
     public Mazo getMazo() {
@@ -75,6 +108,31 @@ public class JuegoPoker {
     public Pago getPago() {
         return pago;
     }
+
+    public EvaluadorMano getEval() {
+        return eval;
+    }
+
+    public void setEval(EvaluadorMano eval) {
+        this.eval = eval;
+    }
+
+    public int getCreditos() {
+        return creditos;
+    }
+
+    public void setCreditos(int creditos) {
+        this.creditos = creditos;
+    }
+
+    public int getCreditosApos() {
+        return creditosApos;
+    }
+
+    public void setCreditosApos(int creditosApos) {
+        this.creditosApos = creditosApos;
+    }
+    
     
     
 }

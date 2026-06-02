@@ -76,6 +76,10 @@ public class PokerController implements Initializable {
     private boolean primerJ = true;
     @FXML
     private TextArea txtMensaje;
+    @FXML
+    private Button btnDoblarJugada;
+    @FXML
+    private Button btnReiniciar;
 
     /**
      * Initializes the controller class.
@@ -83,18 +87,23 @@ public class PokerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        juego = new JuegoPoker();
+        
+        txtCreditos.setText("0");
+        juego = new JuegoPoker(Integer.parseInt(txtCreditosApostados.getText()), Integer.parseInt(txtCreditos.getText()));
         juego.IniciarJuego();
         
         imagenes = new ImageView[] {imgCarta1, imgCarta2, imgCarta3, imgCarta4, imgCarta5};
+        txtMensaje.setText("BIENVENIDO A VIDEOPOKER. DIGITE SUS CREDITOS.");
         
     }    
     
     @FXML
     private void RepartirCartas(ActionEvent event) {
+        
         if (primerJ) {
             juego.repartirCartas();
             primerJ = false;
+            txtMensaje.setText("TIENE LA OPORTUNIDAD DE CAMBIAR SUS CARTAS SOLO UNA VEZ.");
         } else {
             juego.cambiarCartas();
             primerJ = true;
@@ -232,6 +241,38 @@ public class PokerController implements Initializable {
 
     @FXML
     private void CobrarDinero(ActionEvent event) {
+        int pago = juego.calcularPremio();
+        int cre = Integer.parseInt(txtCreditos.getText());
+        txtMensaje.setText("SU JUGADA ES: " + juego.evaluarMano());
+        txtGanancia.setText(String.valueOf(pago));
+        
+        if (pago>0) {
+            int resto = cre+pago;
+            txtCreditos.setText(String.valueOf(resto));
+        } if (pago==0) {
+            int apos = Integer.parseInt(txtCreditosApostados.getText());
+            int res = cre- apos;
+            txtCreditos.setText(String.valueOf(res));
+        }
+    }
+
+    @FXML
+    private void doblarJugada(ActionEvent event) {
+    }
+
+    @FXML
+    private void reiniciarJuego(ActionEvent event) {
+        
+        juego.reiniciar();
+        txtCreditos.setText(String.valueOf(juego.getCreditos()));
+        txtApuesta.setText("0");
+        txtGanancia.setText("0");
+        txtCreditosApostados.setText("");
+        txtMensaje.clear();
+
+        for (ImageView img : imagenes) {
+            img.setImage(null);
+        }
     }
     
 }
