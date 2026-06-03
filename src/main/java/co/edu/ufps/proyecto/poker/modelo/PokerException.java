@@ -10,7 +10,9 @@ package co.edu.ufps.proyecto.poker.modelo;
  */
 public class PokerException extends Exception{
     
+    //son errores especificos de las reglas del juego
    public PokerException (String mensaje) {
+       //le dice a exception, que en lugar de mostrar el error, muestre un mensaje
        super(mensaje);
    }
     

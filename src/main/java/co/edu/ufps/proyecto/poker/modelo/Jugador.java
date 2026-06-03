@@ -34,11 +34,7 @@ public class Jugador {
     }
     
     public void cobrarGanancia (int premio) {
-        if (premio== 0) {
-            saldoCredito-= creditosApostar;
-        } else {
-            saldoCredito+= premio;
-        }
+        saldoCredito+= premio;
     }
 
     public String getNombre() {

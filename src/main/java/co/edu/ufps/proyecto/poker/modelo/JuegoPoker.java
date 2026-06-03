@@ -81,7 +81,7 @@ public class JuegoPoker {
         } if (eval.esPar(cartas)) {
             return "PAREJA DE JOTAS O MEJOR. ";
         }
-        return "NINGUNA JUGADA. ";
+        return "NINGUNA JUGADA. :( ";
     }
     
     public int calcularPremio() {

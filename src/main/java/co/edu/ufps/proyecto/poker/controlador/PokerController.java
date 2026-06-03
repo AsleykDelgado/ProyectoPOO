@@ -191,6 +191,12 @@ public class PokerController implements Initializable {
             txtCreditos.clear();
             return;
         }
+        if (credi < apos) {
+            txtMensaje.setText("SALDO INSUFICIENTE. SU SALDO ES " + credi
+                + " CRÉDITOS Y SU APUESTA ES " + apos + " CRÉDITOS. REDUZCA SU APUESTA.");
+        
+            return;
+    }
         txtMensaje.clear();
         
         btnApMax.setDisable(true);
