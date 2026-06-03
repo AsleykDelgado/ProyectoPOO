@@ -33,7 +33,10 @@ public class Mazo {
         Collections.shuffle(mazo);
     }
     
-    public Carta repartirCarta () {
+    public Carta repartirCarta () throws PokerException {
+        if (mazo.isEmpty()) {
+            throw new PokerException ("EL MAZO ESTA VACIO.");
+        }
         return mazo.remove(0);
     }
     

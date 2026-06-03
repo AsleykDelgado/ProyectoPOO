@@ -26,6 +26,7 @@ public class JuegoPoker {
         mano = new Mano();
         eval = new EvaluadorMano();
         pago = new Pago();
+        jugador = new Jugador("Jugador", creditosApos, creditos);
         this.creditosApos = creditosApos;
         this.creditos = creditos;
     }
@@ -35,21 +36,25 @@ public class JuegoPoker {
         mazo = new Mazo();
         mazo.crearMazo();
         mazo.barajearMazo();
+        
     }
     
-    public void repartirCartas() {
+    public void repartirCartas() throws PokerException{
         mano.limpiar();
     
         for (int i = 0; i < 5; i++) {
-            mano.agregarCarta(i, mazo.repartirCarta());
+            Carta c = mazo.repartirCarta();
+            mano.agregarCarta(i, c);
     }
+        jugador.setMano(mano);
     }
     
-    public void cambiarCartas() {
+    public void cambiarCartas() throws PokerException{
         for (int i = 0; i < 5; i++) {
 
             if (!mano.estaRete(i)) {
-                mano.agregarCarta(i, mazo.repartirCarta());
+                Carta a = mazo.repartirCarta(); //aqui es donde lanza alguna exception
+                mano.agregarCarta(i, a);
             }
         }
     }
@@ -80,16 +85,18 @@ public class JuegoPoker {
     }
     
     public int calcularPremio() {
-        return pago.calcular(mano.getCartas(), creditosApos);
+        int premio = pago.calcular(mano.getCartas(), creditosApos);
+        jugador.cobrarGanancia(premio);
+        return premio;
     }
     
     public void reiniciar () {
         mano.limpiar();
         
-        creditos = creditos;
         creditosApos = 0;
         
         mazo = new Mazo();
+        mazo.crearMazo();
         mazo.barajearMazo();
     }
 

@@ -77,9 +77,10 @@ public class PokerController implements Initializable {
     @FXML
     private TextArea txtMensaje;
     @FXML
-    private Button btnDoblarJugada;
-    @FXML
     private Button btnReiniciar;
+    @FXML
+    private Button btnVolver;
+    
 
     /**
      * Initializes the controller class.
@@ -89,7 +90,9 @@ public class PokerController implements Initializable {
         // TODO
         
         txtCreditos.setText("0");
-        juego = new JuegoPoker(Integer.parseInt(txtCreditosApostados.getText()), Integer.parseInt(txtCreditos.getText()));
+        txtCreditosApostados.setText("0");
+        
+        juego = new JuegoPoker(0, 0);
         juego.IniciarJuego();
         
         imagenes = new ImageView[] {imgCarta1, imgCarta2, imgCarta3, imgCarta4, imgCarta5};
@@ -101,14 +104,31 @@ public class PokerController implements Initializable {
     private void RepartirCartas(ActionEvent event) {
         
         if (primerJ) {
-            juego.repartirCartas();
+            try {
+                juego.repartirCartas();
+            } catch (PokerException e) {
+                txtMensaje.setText("ERROR AL REPARTIR: \n" + e.getMessage());
+                return;
+            }
             primerJ = false;
             txtMensaje.setText("TIENE LA OPORTUNIDAD DE CAMBIAR SUS CARTAS SOLO UNA VEZ.");
         } else {
-            juego.cambiarCartas();
+            try {
+                juego.cambiarCartas();
+            } catch (PokerException e) {
+                txtMensaje.setText("ERROR AL CAMBIAR LAS CARTAS: \n" + e.getMessage());
+                return;
+            }
             primerJ = true;
             btnRepartir.setDisable(true);
+            btnCobrar.setDisable(false);
         }
+        
+            btnRetener1.setDisable(false);
+            btnRetener2.setDisable(false);
+            btnRetener3.setDisable(false);
+            btnRetener4.setDisable(false);
+            btnRetener5.setDisable(false);
         mostrarMano();
     }
     
@@ -146,28 +166,44 @@ public class PokerController implements Initializable {
     @FXML
     private void SleccionarApuesta(ActionEvent event) {
         
-        if (txtCreditos.getText().equals("") || txtCreditosApostados.getText().equals(null)) {
+        if (txtCreditos.getText().equals("") || txtCreditosApostados.getText().equals("0")) {
             txtMensaje.setText("DEBE INGRESAR LOS CREDITOS SOLICITADOS. ");
-        } else {
+            return;
+        } 
+        // verificamos para que no ingresen letras en lugar de numeros con try catch
+        int credi;
+        int apos;
+        
+        try {
+            credi = Integer.parseInt(txtCreditos.getText());
+            apos  = Integer.parseInt(txtCreditosApostados.getText());
+        } catch (NumberFormatException e) {
+            txtMensaje.setText("ERROR: SOLO PUEDE INGRESAR NUMEROS. \n - "+ txtCreditos.getText() + "- NO ES VALIDO");
+            txtCreditos.clear();
+            txtCreditosApostados.setText("0");
+            txtCreditos.setEditable(true);
+            return;
+        }
+        
+        //verificamos que no ingrese numeros negativos
+        if (credi<= 0) {
+            txtMensaje.setText("LOS CREDITOS DEBEN SER MAYORES A 0");
+            txtCreditos.clear();
+            return;
+        }
         txtMensaje.clear();
-        btnCobrar.setDisable(false);
-        btnRepartir.setDisable(false);
-        btnRetener1.setDisable(false);
-        btnRetener2.setDisable(false);
-        btnRetener3.setDisable(false);
-        btnRetener4.setDisable(false);
-        btnRetener5.setDisable(false);
         
         btnApMax.setDisable(true);
         btnSeleccionApuesta.setDisable(true);
         btnRestarCre.setDisable(true);
         btnSumarCre.setDisable(true);
-        
+        btnRepartir.setDisable(false);
         txtCreditos.setEditable(false);
         
         // en el mensaje de apuesta, mostramos los creditos apostados
         txtApuesta.setText(txtCreditosApostados.getText());
-        }
+        txtCreditos.setText(String.valueOf(credi - apos));
+        
     }
 
     @FXML
@@ -241,34 +277,87 @@ public class PokerController implements Initializable {
 
     @FXML
     private void CobrarDinero(ActionEvent event) {
+        
+        
+        int apuesta = Integer.parseInt(txtCreditosApostados.getText());
+        juego.setCreditosApos(apuesta);
+
         int pago = juego.calcularPremio();
-        int cre = Integer.parseInt(txtCreditos.getText());
+        int creditosActuales = Integer.parseInt(txtCreditos.getText());
+
         txtMensaje.setText("SU JUGADA ES: " + juego.evaluarMano());
         txtGanancia.setText(String.valueOf(pago));
+
+        int saldoFinal = creditosActuales + pago;
+
+        txtCreditos.setText(String.valueOf(saldoFinal));
         
-        if (pago>0) {
-            int resto = cre+pago;
-            txtCreditos.setText(String.valueOf(resto));
-        } if (pago==0) {
-            int apos = Integer.parseInt(txtCreditosApostados.getText());
-            int res = cre- apos;
-            txtCreditos.setText(String.valueOf(res));
-        }
+        btnCobrar.setDisable(true);
+        btnRetener1.setText("RETENER");
+        btnRetener1.setDisable(true);
+        btnRetener2.setText("RETENER");
+        btnRetener2.setDisable(true);
+        btnRetener3.setText("RETENER");
+        btnRetener3.setDisable(true);
+        btnRetener4.setText("RETENER");
+        btnRetener4.setDisable(true);
+        btnRetener5.setText("RETENER");
+        btnRetener5.setDisable(true);
     }
 
-    @FXML
-    private void doblarJugada(ActionEvent event) {
-    }
 
     @FXML
     private void reiniciarJuego(ActionEvent event) {
         
+        btnApMax.setDisable(false);
+        btnCobrar.setDisable(true);
+        btnRepartir.setDisable(true);
+        btnRestarCre.setDisable(false);
+        btnSumarCre.setDisable(false);
+        btnSeleccionApuesta.setDisable(false);
+        btnRetener1.setDisable(true);
+        btnRetener2.setDisable(true);
+        btnRetener3.setDisable(true);
+        btnRetener4.setDisable(true);
+        btnRetener5.setDisable(true);
+        
+        
         juego.reiniciar();
-        txtCreditos.setText(String.valueOf(juego.getCreditos()));
+        juego.IniciarJuego();
+        txtCreditos.clear();
+        txtCreditos.setEditable(true);
         txtApuesta.setText("0");
         txtGanancia.setText("0");
-        txtCreditosApostados.setText("");
+        txtCreditosApostados.setText("0");
         txtMensaje.clear();
+
+        for (ImageView img : imagenes) {
+            img.setImage(null);
+        }
+    }
+
+    @FXML
+    private void volverJugar(ActionEvent event) {
+        btnApMax.setDisable(false);
+        btnCobrar.setDisable(true);
+        btnRepartir.setDisable(true);
+        btnRestarCre.setDisable(false);
+        btnSumarCre.setDisable(false);
+        btnSeleccionApuesta.setDisable(false);
+        btnRetener1.setDisable(true);
+        btnRetener2.setDisable(true);
+        btnRetener3.setDisable(true);
+        btnRetener4.setDisable(true);
+        btnRetener5.setDisable(true);
+        
+        
+        juego.reiniciar();
+        juego.IniciarJuego();
+        txtCreditos.setEditable(true);
+        txtApuesta.setText("0");
+        txtGanancia.setText("0");
+        txtCreditosApostados.setText("0");
+        txtMensaje.setText("VUELVE A JUGAR. \n" + "TUS CREDITOS SIGUEN SIENDO LOS MISMOS. ");
 
         for (ImageView img : imagenes) {
             img.setImage(null);

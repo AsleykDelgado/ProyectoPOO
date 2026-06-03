@@ -53,16 +53,14 @@ public class EvaluadorMano {
         
         HashMap<Integer,Integer> conteo = contarValores(mano);
 
-        int pares = 0;
+        for(Integer valor : conteo.keySet()){
 
-        for(int cantidad : conteo.values()){
-
-         if(cantidad == 2){
-            pares++;
-         }
+          if(conteo.get(valor) == 2 && valor >= 11){
+            return true;
+          }
         }
 
-        return pares == 1;
+         return false;
     }
     
     public boolean esDoblePar(Carta[] mano){

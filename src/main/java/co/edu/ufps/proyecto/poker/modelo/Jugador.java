@@ -21,6 +21,25 @@ public class Jugador {
         this.saldoCredito = saldoCredito;
     }
     
+    public void apostar (int apuesta) throws PokerException{
+        if (apuesta<= 0) {
+            throw new PokerException("LA APUESTA DEBE SER MAYOR A O.");
+        } if (apuesta>5) {
+            throw new PokerException("SOLO PUEDE APOSTAR HASTA 5 CREDITOS. ");
+        } if (apuesta>saldoCredito) {
+            throw new PokerException("SALDO INSUFICIENTE. ");
+        }
+        
+        saldoCredito-=apuesta;
+    }
+    
+    public void cobrarGanancia (int premio) {
+        if (premio== 0) {
+            saldoCredito-= creditosApostar;
+        } else {
+            saldoCredito+= premio;
+        }
+    }
 
     public String getNombre() {
         return nombre;
@@ -45,6 +64,15 @@ public class Jugador {
     public void setSaldoCredito(int saldoCredito) {
         this.saldoCredito = saldoCredito;
     }
+
+    public Mano getMano() {
+        return mano;
+    }
+
+    public void setMano(Mano mano) {
+        this.mano = mano;
+    }
+    
     
     
     
