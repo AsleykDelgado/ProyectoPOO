@@ -28,7 +28,7 @@
       </ImageView>
       <Pane layoutX="208.0" layoutY="147.0" prefHeight="464.0" prefWidth="859.0" style="-fx-background-color: linear-gradient(#0015ff,#00008b); -fx-background-radius: 20;">
          <children>
-            <HBox fx:id="hboxCartas" alignment="CENTER" layoutX="14.0" layoutY="280.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+            <HBox fx:id="hboxCartas" alignment="CENTER" layoutX="14.0" layoutY="248.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <ImageView fx:id="imgCarta1" fitHeight="170.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgCarta2" fitHeight="170.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
@@ -51,7 +51,7 @@
                   </TextField>
                </children>
             </VBox>
-            <TextArea fx:id="txtMensaje" editable="false" layoutX="483.0" layoutY="34.0" prefHeight="160.0" prefWidth="199.0" wrapText="true">
+            <TextArea fx:id="txtMensaje" editable="false" layoutX="484.0" layoutY="19.0" prefHeight="160.0" prefWidth="199.0" wrapText="true">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -80,16 +80,71 @@
                   </TextField>
                </children>
             </VBox>
-            <ImageView fitHeight="265.0" fitWidth="454.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgTabla" fitHeight="232.0" fitWidth="405.0" layoutX="31.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/WhatsApp%20Image%202026-06-01%20at%203.44.05%20PM.jpeg" />
                </image>
             </ImageView>
+            <Button fx:id="btnDoblar" layoutX="533.0" layoutY="194.0" mnemonicParsing="false" onAction="#doblarJugada" prefHeight="39.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="DOBLAR" visible="false">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnElegir1" layoutX="169.0" layoutY="420.0" mnemonicParsing="false" onAction="#elegirCarta1" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="ELEGIR" visible="false">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnElegir3" layoutX="446.0" layoutY="420.0" mnemonicParsing="false" onAction="#elegirCarta3" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="ELEGIR" visible="false">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnElegir2" layoutX="307.0" layoutY="420.0" mnemonicParsing="false" onAction="#elegirCarta2" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="ELEGIR" visible="false">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnElegir4" layoutX="586.0" layoutY="420.0" mnemonicParsing="false" onAction="#elegirCarta4" prefHeight="39.0" prefWidth="95.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="ELEGIR" visible="false">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </Pane>
-      <HBox alignment="CENTER" layoutX="189.0" layoutY="620.0" prefHeight="85.0" prefWidth="905.0" spacing="10.0">
+      <HBox alignment="CENTER" layoutX="189.0" layoutY="617.0" prefHeight="85.0" prefWidth="905.0" spacing="10.0">
          <children>
-            <Button fx:id="btnCobrar" disable="true" mnemonicParsing="false" onAction="#CobrarDinero" prefHeight="70.0" prefWidth="100.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="COBRAR">
+            <Button fx:id="btnCobrar" disable="true" mnemonicParsing="false" onAction="#CobrarDinero" prefHeight="70.0" prefWidth="94.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="COBRAR">
                <font>
                   <Font name="Arial Black" size="13.0" />
                </font>
@@ -172,7 +227,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnRepartir" disable="true" mnemonicParsing="false" onAction="#RepartirCartas" prefHeight="70.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="REPARTIR">
+            <Button fx:id="btnRepartir" disable="true" mnemonicParsing="false" onAction="#RepartirCartas" prefHeight="72.0" prefWidth="109.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#ffffff,#bcd3ff);;" text="REPARTIR">
                <font>
                   <Font name="Arial Black" size="13.0" />
                </font>

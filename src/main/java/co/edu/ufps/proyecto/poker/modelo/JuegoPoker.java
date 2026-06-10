@@ -18,8 +18,10 @@ public class JuegoPoker {
     private Mano mano;
     private Pago pago; 
     private EvaluadorMano eval;
+    private Doblar dob;
     private int creditos;
     private int creditosApos;
+    private int gananciaTotal;
 
     public JuegoPoker(int creditosApos, int creditos) {
         mazo = new Mazo();
@@ -87,7 +89,19 @@ public class JuegoPoker {
     public int calcularPremio() {
         int premio = pago.calcular(mano.getCartas(), creditosApos);
         jugador.cobrarGanancia(premio);
+        
         return premio;
+    }
+    
+    public int doblar (Carta selec, Carta visi, int apuesta) {
+        dob = new Doblar(calcularPremio());
+        int total = dob.evaluar(selec, visi, apuesta);
+        return total;
+    }
+    
+    public void cobrar () {
+        jugador.cobrarGanancia(gananciaTotal);
+        gananciaTotal = 0;
     }
     
     public void reiniciar () {

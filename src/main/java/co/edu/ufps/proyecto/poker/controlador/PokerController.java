@@ -4,7 +4,9 @@
  */
 package co.edu.ufps.proyecto.poker.controlador;
 
+import co.edu.ufps.proyecto.poker.App;
 import co.edu.ufps.proyecto.poker.modelo.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -80,6 +82,18 @@ public class PokerController implements Initializable {
     private Button btnReiniciar;
     @FXML
     private Button btnVolver;
+    @FXML
+    private Button btnDoblar;
+    @FXML
+    private ImageView imgTabla;
+    @FXML
+    private Button btnElegir1;
+    @FXML
+    private Button btnElegir3;
+    @FXML
+    private Button btnElegir2;
+    @FXML
+    private Button btnElegir4;
     
 
     /**
@@ -309,11 +323,19 @@ public class PokerController implements Initializable {
         btnRetener4.setDisable(true);
         btnRetener5.setText("RETENER");
         btnRetener5.setDisable(true);
+        
+        if (Integer.parseInt(txtGanancia.getText())> 0) {
+            btnDoblar.setVisible(true);
+        }
     }
 
 
     @FXML
     private void reiniciarJuego(ActionEvent event) {
+        Image im = new Image(getClass().getResourceAsStream("/co/edu/ufps/proyecto/poker/images/WhatsApp Image 2026-06-01 at 3.44.05 PM.jpeg"));
+        imgTabla.setImage(im);
+        
+        btnDoblar.setVisible(false);
         
         btnApMax.setDisable(false);
         btnCobrar.setDisable(true);
@@ -327,6 +349,14 @@ public class PokerController implements Initializable {
         btnRetener4.setDisable(true);
         btnRetener5.setDisable(true);
         
+        btnElegir1.setDisable(false);
+        btnElegir1.setVisible(false);
+        btnElegir2.setDisable(false);
+        btnElegir2.setVisible(false);
+        btnElegir3.setDisable(false);
+        btnElegir3.setVisible(false);
+        btnElegir4.setDisable(false);
+        btnElegir4.setVisible(false);
         
         juego.reiniciar();
         juego.IniciarJuego();
@@ -344,6 +374,10 @@ public class PokerController implements Initializable {
 
     @FXML
     private void volverJugar(ActionEvent event) {
+        Image im = new Image(getClass().getResourceAsStream("/co/edu/ufps/proyecto/poker/images/WhatsApp Image 2026-06-01 at 3.44.05 PM.jpeg"));
+        imgTabla.setImage(im);
+        
+        btnDoblar.setVisible(false);
         btnApMax.setDisable(false);
         btnCobrar.setDisable(true);
         btnRepartir.setDisable(true);
@@ -356,6 +390,14 @@ public class PokerController implements Initializable {
         btnRetener4.setDisable(true);
         btnRetener5.setDisable(true);
         
+        btnElegir1.setDisable(false);
+        btnElegir1.setVisible(false);
+        btnElegir2.setDisable(false);
+        btnElegir2.setVisible(false);
+        btnElegir3.setDisable(false);
+        btnElegir3.setVisible(false);
+        btnElegir4.setDisable(false);
+        btnElegir4.setVisible(false);
         
         juego.reiniciar();
         juego.IniciarJuego();
@@ -369,5 +411,157 @@ public class PokerController implements Initializable {
             img.setImage(null);
         }
     }
+
+    
+    @FXML
+    private void doblarJugada(ActionEvent event) throws PokerException {
+        juego.IniciarJuego();
+        juego.repartirCartas();
+        
+        txtApuesta.setText(txtGanancia.getText());
+        txtGanancia.setText(" ");
+        txtMensaje.setText("ELIGA UNA CARTA. SI ES MAYOR GANA EL DOBLE O SI ES MENOR PIERDE TODA SU APUESTA ;) ");
+        
+        Image im = new Image(getClass().getResourceAsStream("/co/edu/ufps/proyecto/poker/images/doble.png"));
+        imgTabla.setImage(im);
+        
+        Image ocul = new Image(getClass().getResourceAsStream("/co/edu/ufps/proyecto/poker/images/poker.jpg"));
+        imgCarta2.setImage(ocul);
+        imgCarta3.setImage(ocul);
+        imgCarta4.setImage(ocul);
+        imgCarta5.setImage(ocul);
+        
+        btnDoblar.setVisible(false);
+        btnElegir1.setVisible(true);
+        btnElegir1.setDisable(false);
+        btnElegir2.setVisible(true);
+        btnElegir2.setDisable(false);
+        btnElegir3.setVisible(true);
+        btnElegir3.setDisable(false);
+        btnElegir4.setVisible(true);
+        btnElegir4.setDisable(false);
+        
+        Carta[] cartas = juego.getMano().getCartas();
+        
+            if (cartas[0]!= null) {
+                Image imagen = new Image(getClass().getResourceAsStream(cartas[0].getImagen()));
+                imagenes[0].setImage(imagen);
+        }
+    }
+    
+
+    @FXML
+    private void elegirCarta1(ActionEvent event) {
+        btnElegir2.setDisable(true);
+        btnElegir3.setDisable(true);
+        btnElegir4.setDisable(true);
+        Carta[] cartas = juego.getMano().getCartas();
+        
+        int apuesta = Integer.parseInt(txtApuesta.getText());
+        
+            if (cartas[1]!= null) {
+                Image imagen = new Image(getClass().getResourceAsStream(cartas[1].getImagen()));
+                imagenes[1].setImage(imagen);
+                int ganancia = juego.doblar(cartas[1], cartas[0], apuesta);
+                txtGanancia.setText(ganancia + "");
+                txtMensaje.setText("SU JUGADA FUE: ");
+                if (ganancia>0) {
+                    txtMensaje.setText("FELICIDADES SU JUGADA FUE MAYOR A LA CARTA. GANASTE: "+ ganancia + " CREDITOS\n"+ "PUEDES VOLVER A DOBLAR");
+                    btnDoblar.setVisible(true);
+                    int totalcre = Integer.parseInt(txtCreditos.getText()) + ganancia;
+                txtCreditos.setText(totalcre + "");
+                } else {
+                    txtMensaje.setText("LO SIENTO, PERDISTE "+ txtApuesta.getText() + " CREDITOS");
+                    int totalcre = Integer.parseInt(txtCreditos.getText()) - Integer.parseInt(txtApuesta.getText());
+                txtCreditos.setText(totalcre + "");
+                }
+                
+        }
+            
+    }
+
+    @FXML
+    private void elegirCarta3(ActionEvent event) {
+        btnElegir2.setDisable(true);
+        btnElegir1.setDisable(true);
+        btnElegir4.setDisable(true);
+        Carta[] cartas = juego.getMano().getCartas();
+        int apuesta = Integer.parseInt(txtApuesta.getText());
+        
+            if (cartas[3]!= null) {
+                Image imagen = new Image(getClass().getResourceAsStream(cartas[3].getImagen()));
+                imagenes[3].setImage(imagen);
+                int ganancia = juego.doblar(cartas[3], cartas[0], apuesta);
+                txtGanancia.setText(ganancia + "");
+                txtMensaje.setText("SU JUGADA FUE: ");
+                if (ganancia>0) {
+                    txtMensaje.setText("FELICIDADES SU JUGADA FUE MAYOR A LA CARTA. GANASTE: "+ ganancia + " CREDITOS\n"+ "PUEDES VOLVER A DOBLAR");
+                    btnDoblar.setVisible(true);
+                    int totalcre = Integer.parseInt(txtCreditos.getText()) + ganancia;
+                txtCreditos.setText(totalcre + "");
+                } else {
+                    txtMensaje.setText("LO SIENTO, PERDISTE "+ txtApuesta.getText() + " CREDITOS");
+                    int totalcre = Integer.parseInt(txtCreditos.getText()) - Integer.parseInt(txtApuesta.getText());
+                txtCreditos.setText(totalcre + "");
+                }
+        }
+    }
+
+    @FXML
+    private void elegirCarta2(ActionEvent event) {
+        btnElegir1.setDisable(true);
+        btnElegir3.setDisable(true);
+        btnElegir4.setDisable(true);
+        Carta[] cartas = juego.getMano().getCartas();
+        int apuesta = Integer.parseInt(txtApuesta.getText());
+        
+            if (cartas[2]!= null) {
+                Image imagen = new Image(getClass().getResourceAsStream(cartas[2].getImagen()));
+                imagenes[2].setImage(imagen);
+                int ganancia = juego.doblar(cartas[2], cartas[0], apuesta);
+                txtGanancia.setText(ganancia + "");
+                txtMensaje.setText("SU JUGADA FUE: ");
+                if (ganancia>0) {
+                    txtMensaje.setText("FELICIDADES SU JUGADA FUE MAYOR A LA CARTA. GANASTE: "+ ganancia + " CREDITOS\n"+ "PUEDES VOLVER A DOBLAR");
+                    btnDoblar.setVisible(true);
+                int totalcre = Integer.parseInt(txtCreditos.getText()) + ganancia;
+                txtCreditos.setText(totalcre + "");
+                } else {
+                    txtMensaje.setText("LO SIENTO, PERDISTE "+ txtApuesta.getText() + " CREDITOS");
+                    int totalcre = Integer.parseInt(txtCreditos.getText()) - Integer.parseInt(txtApuesta.getText());
+                txtCreditos.setText(totalcre + "");
+                }
+        }
+    }
+
+    @FXML
+    private void elegirCarta4(ActionEvent event) {
+        btnElegir2.setDisable(true);
+        btnElegir3.setDisable(true);
+        btnElegir1.setDisable(true);
+        
+        Carta[] cartas = juego.getMano().getCartas();
+        int apuesta = Integer.parseInt(txtApuesta.getText());
+        
+            if (cartas[4]!= null) {
+                Image imagen = new Image(getClass().getResourceAsStream(cartas[4].getImagen()));
+                imagenes[4].setImage(imagen);
+                int ganancia = juego.doblar(cartas[4], cartas[0], apuesta);
+                txtGanancia.setText(ganancia + "");
+                txtMensaje.setText("SU JUGADA FUE: ");
+                if (ganancia>0) {
+                    txtMensaje.setText("FELICIDADES SU JUGADA FUE MAYOR A LA CARTA. GANASTE: "+ ganancia + " CREDITOS\n"+ "PUEDES VOLVER A DOBLAR");
+                    btnDoblar.setVisible(true);
+                int totalcre = Integer.parseInt(txtCreditos.getText()) - ganancia;
+                txtCreditos.setText(totalcre + "");
+                } else {
+                    txtMensaje.setText("LO SIENTO, PERDISTE "+ txtApuesta.getText() + " CREDITOS");
+                    int totalcre = Integer.parseInt(txtCreditos.getText()) - Integer.parseInt(txtApuesta.getText());
+                txtCreditos.setText(totalcre + "");
+                }
+        }
+    }
+    
+    
     
 }
